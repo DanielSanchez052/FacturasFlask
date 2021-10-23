@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %} customer {% endblock %}
+{% block contenido %}
+<div class="container">
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">customer</h3>
+                <a href="{{url_for('routes.add_customer')}}" class="btn btn-primary">Agregar</a>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{user[1]}}</td>
+                            <td>{{user[2]}}</td>
+                            <td>{{user[3]}}</td>
+                            <td>
+                                <a href="{{url_for('routes.edit_customer', id=user[0])}}" class="btn btn-success">Editar</a>
+                            </td>
+                            <td>
+                                <form action="#" method="POST" onSubmit="return confirm('Está seguro de eliminar este usuario?');">
+                                    <input type="hidden" name="id" value="{{user[0]}}">
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

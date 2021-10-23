@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block titulo %} Facturas {% endblock %}
+{% block contenido %}
+<div class="container">
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">customer</h3>
+                <a href="{{url_for('routes.add_bill')}}" class="btn btn-primary">Agregar</a>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>date</th>
+                            <th>usuario</th>
+                            <th>price</th>
+                            <th>balance</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bill in bills %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{bill[1]}}</td>
+                            <td>{{bill[2]}}</td>
+                            <td>{{bill[3]}}</td>
+                            <td>{{bill[4]}}</td>
+                            <td>
+                                <a href="" class="btn btn-success">Editar</a>
+                            </td>
+                            <td>
+                                <form action="#" method="POST" onSubmit="return confirm('Está seguro de eliminar este usuario?');">
+                                    <input type="hidden" name="id" value="{{bill[0]}}">
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

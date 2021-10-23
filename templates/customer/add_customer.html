@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Agregar Cliente{% endblock %}
+{% block contenido %}
+    <div class="container">
+        <section class="section">
+            <div class="columns">
+                <div class="column is-one-third">
+                    <h3 class="is-size-3">Agregar Usuario</h3>
+                    <form action="{{url_for('routes.save_customer')}}" method="POST">
+                        <label for="name">Nombre:</label>
+                        <input required type="text" class="form-control" placeholder="Nombre" name="name" id="name">
+                        <label for="mobile">Telefono</label>
+                        <input required type="text" class="form-control" placeholder="Teléfono" name="mobile" id="mobile">
+                        <br>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a href="{{url_for('index')}}" class="btn btn-primary">Volver</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
