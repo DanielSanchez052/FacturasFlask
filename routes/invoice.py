@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, jsonify
+from flask import render_template, request, redirect, jsonify, url_for
 from . import routes
 from controllers import invoice_controller
 
@@ -14,8 +14,35 @@ def add_bill():
 
 @routes.route("/save_bill", methods=["POST"])
 def save_bill():
-    name = request.form["name"]
-    mobile = request.form["mobile"]
-    bill_controller.add_user(name, mobile)
-    # De cualquier modo, y si todo fue bien, redireccionar
-    return redirect("/bill")
+    try:
+        number = request.form["number"]
+        user = request.form["user"]
+        price = request.form["price"]
+        balance = request.form["balance"]
+        date = request.form["date"]
+        invoice_controller.add_bill(number,user,price,balance,date)
+        return redirect("/bills")
+    except:
+        return redirect("/bills")
+
+@routes.route('/edit_bill/<int:id>')
+def edit_bill(id):
+    bill = invoice_controller.get_bill_id(id)
+    return render_template('invoice/update_bill.html',bill=bill)
+
+@routes.route('/update_bill', methods=['POST'])
+def update_bill():
+    # obtener los datos del formulario que invocó este end-point
+    id = request.form['id']
+    number = request.form["number"]
+    price = request.form["price"]
+    balance = request.form["balance"]
+    date = request.form["date"]
+    
+    invoice_controller.update_bill(number,price,balance,date, id)
+    return redirect('/bills')
+
+@routes.route("/delete_bill", methods=["POST"])
+def delete_bill():
+    res = invoice_controller.delete_invoice(request.form["id"])
+    return redirect(url_for("routes.bills"))

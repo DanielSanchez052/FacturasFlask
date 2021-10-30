@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, jsonify
+from flask import render_template, request, redirect, jsonify,url_for
 from . import routes
 from controllers import customer_controller
 
@@ -29,9 +29,10 @@ def add_customer():
 
 @routes.route("/save_customer", methods=["POST"])
 def save_customer():
+    Identification = request.form["Identification"]
     name = request.form["name"]
     mobile = request.form["mobile"]
-    customer_controller.add_user(name, mobile)
+    customer_controller.add_user(Identification, name, mobile)
     # De cualquier modo, y si todo fue bien, redireccionar
     return redirect("/customer")
 
@@ -50,7 +51,8 @@ def update_customer():
     customer_controller.update_user(name,mobile,active, id)
     return redirect('/customer')
 
-# @routes.route("/delete_user", methods=["POST"])
-# def delete_user():
-#     customer_controller.delete_user(request.form["id"])
-#     return redirect("/index")
+@routes.route("/delete_customer", methods=["POST"])
+def delete_customer():
+    res = customer_controller.delete_user(request.form["id"])
+    return redirect(url_for("routes.customer"))
+

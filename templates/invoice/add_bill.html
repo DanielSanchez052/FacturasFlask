@@ -6,13 +6,15 @@
             <div class="columns">
                 <div class="column is-one-third">
                     <h3 class="is-size-3">Agregar Usuario</h3>
-                    <form action="{{url_for('routes.save_customer')}}" method="POST">
-                        <label for="user">id Usuario:</label>
-                        <input required type="text" class="form-control" placeholder="Nombre" name="user" id="user">
+                    <form action="{{url_for('routes.save_bill')}}" method="POST">
+                        <label for="number">Numero de Factura</label>
+                        <input required type="number" class="form-control" placeholder="Numero de Factura" name="number" id="number">
+                        <label for="user">identificacion del Usuario:</label>
+                        <input required type="text" class="form-control" placeholder="identificacion" name="user" id="user">
                         <label for="price">price</label>
-                        <input required type="number" class="form-control" placeholder="Teléfono" name="price" id="price">
+                        <input required type="number" class="form-control" placeholder="PRecio" name="price" id="price">
                         <label for="balance">balance</label>
-                        <input required type="number" class="form-control" placeholder="Teléfono" name="balance" id="balance">
+                        <input required type="number" class="form-control" placeholder="Balance" name="balance" id="balance">
                         <label for="date">Fecha: </label>
                         <input required type="date" class="form-control"placeholder="aaaa-mm-dd" name="date" id="date" max="2021-10-23">
                         <br>

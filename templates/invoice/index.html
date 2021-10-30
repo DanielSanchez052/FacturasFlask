@@ -5,13 +5,14 @@
     <section class="section">
         <div class="columns">
             <div class="column">
-                <h3 class="is-size-3">customer</h3>
+                <h3 class="is-size-3">Facturas</h3>
                 <a href="{{url_for('routes.add_bill')}}" class="btn btn-primary">Agregar</a>
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>date</th>
+                            <th>numero</th>
                             <th>usuario</th>
                             <th>price</th>
                             <th>balance</th>
@@ -27,11 +28,12 @@
                             <td>{{bill[2]}}</td>
                             <td>{{bill[3]}}</td>
                             <td>{{bill[4]}}</td>
+                            <td>{{bill[5]}}</td>
                             <td>
-                                <a href="" class="btn btn-success">Editar</a>
+                                <a href="{{url_for('routes.edit_bill', id=bill[0])}}" class="btn btn-success">Editar</a>
                             </td>
                             <td>
-                                <form action="#" method="POST" onSubmit="return confirm('Está seguro de eliminar este usuario?');">
+                                <form action="{{url_for('routes.delete_bill')}}" method="POST" onSubmit="return confirm('Está seguro de eliminar este usuario?');">
                                     <input type="hidden" name="id" value="{{bill[0]}}">
                                     <button class="btn btn-danger">Eliminar</button>
                                 </form>
