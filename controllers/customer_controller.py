@@ -31,7 +31,7 @@ def get_users():
     cnn = get_connection()
     users = []
     with cnn.cursor() as cursor:
-        cursor.execute("SELECT id, name, mobile, status FROM user")
+        cursor.execute("SELECT id, name, mobile, status,(select count(*) from invoice.invoice where id_customer=US.id) invoices FROM user as US")
         users = cursor.fetchall()
     cnn.close()
     return users

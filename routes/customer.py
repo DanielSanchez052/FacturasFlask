@@ -7,19 +7,20 @@ def customer():
     users = customer_controller.get_users()
     return render_template('customer/index.html',users=users)
 
-@routes.route('/customer/<int:id>')
+@routes.route('/api/customer/<int:id>')
 def customerId(id):
     user = customer_controller.get_user_id(id)
-    if(user):
+    if(user and user[3]==1):
         return jsonify({
             "id":user[0],
             "name":user[1],
             "mobile":user[2],
-            "active":user[3]
+            "active":user[3],
+            "code":True
         })
     else:
         return jsonify({
-            "message":"no exists",
+            "message":"no exists","code":False
         })
 
 

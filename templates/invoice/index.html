@@ -33,10 +33,15 @@
                                 <a href="{{url_for('routes.edit_bill', id=bill[0])}}" class="btn btn-success">Editar</a>
                             </td>
                             <td>
-                                <form action="{{url_for('routes.delete_bill')}}" method="POST" onSubmit="return confirm('Está seguro de eliminar este usuario?');">
-                                    <input type="hidden" name="id" value="{{bill[0]}}">
-                                    <button class="btn btn-danger">Eliminar</button>
-                                </form>
+                                {%if bill[5] == 0%}
+                                    <form action="{{url_for('routes.delete_bill')}}" method="POST" onSubmit="return confirm('Está seguro de eliminar este usuario?');">
+                                        <input type="hidden" name="id" value="{{bill[0]}}">
+                                        <button class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                {%else%}
+                                <button class="btn btn-danger" disabled>Eliminar</button>
+                                {%endif%}
+                                
                             </td>
                         </tr>
                         {% endfor %}
