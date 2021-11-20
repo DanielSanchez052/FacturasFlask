@@ -1,6 +1,64 @@
 {% extends "base.html" %}
 {% block titulo %}register{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+{% endblock %}
 {% block contenido %}
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" action="{{url_for('routes.register')}}" method="POST" enctype="multipart/form-data">
+                        <h3 class="text-center text-dark">Registrarse</h3>
+                        <div class="form-group">
+                            <label for="Identification">Nombre:</label>
+                            <input required type="text" class="form-control" placeholder="Nombre commpleto" name="name" id="name">  
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Email:</label>
+                            <input required type="email" class="form-control" placeholder="Correo electronico" name="email" id="email"> 
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">Contraseña</label>
+                            <input required type="password" class="form-control" placeholder="Contraseña" name="password" id="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="formFile" class="form-label">Foto de perfil</label>
+                            <input class="form-control" type="file" id="photo" name="photo">
+                        </div>                                
+                        <div class="form-group mt-3">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category == 'error' %}
+                                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}  
+                        </div>
+                        <div class="form-group pt-3 d-flex justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-success">Registrarse</button>
+                            <a href="{{url_for('routes.login')}}" class="link-info">Iniciar sessión</a> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- 
+
+
 <div class="container">
     <h3 class="text-center">Registrarse</h3>
     <div class="row">
@@ -29,7 +87,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 {% endblock %}
 {% block js %} 
     <script src="{{url_for('static', filename = 'js/invoiceValidation.js')}}"></script>

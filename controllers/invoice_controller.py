@@ -28,7 +28,7 @@ def get_bills():
     cnn = get_connection()
     bills = []
     with cnn.cursor() as cursor:
-        cursor.execute("SELECT I.id, I.date, I.number, US.name, I.price, I.balance  FROM user AS US INNER JOIN invoice AS I ON I.id_customer= US.id ORDER BY US.id ASC")
+        cursor.execute("SELECT I.id, I.date, I.number, US.name, I.price, I.balance  FROM customer AS US INNER JOIN invoice AS I ON I.id_customer= US.id ORDER BY US.id ASC")
         bills = cursor.fetchall()
     cnn.close()
     return bills
@@ -37,7 +37,7 @@ def get_bill_id(id):
     cnn = get_connection()
     bill = None
     with cnn.cursor() as cursor:
-        cursor.execute("SELECT I.id, date, I.number, US.id, price, balance  FROM user AS US INNER JOIN invoice AS I ON I.id_customer= US.id WHERE I.id = %s",(id))
+        cursor.execute("SELECT I.id, date, I.number, US.id, price, balance  FROM customer AS US INNER JOIN invoice AS I ON I.id_customer= US.id WHERE I.id = %s",(id))
         bill = cursor.fetchone()
     cnn.close
     

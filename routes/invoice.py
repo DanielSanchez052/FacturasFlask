@@ -1,18 +1,24 @@
 from flask import render_template, request, redirect, jsonify, url_for
+
+from routes import auth
 from . import routes
 from controllers import invoice_controller
+from util.auth_decorator import authorization
 
 @routes.route('/bills')
+@authorization()
 def bills():
     bills = invoice_controller.get_bills()
     return render_template('invoice/index.html',bills=bills)
 
 
 @routes.route('/add_bill')
+@authorization()
 def add_bill():
     return render_template('invoice/add_bill.html')
 
 @routes.route("/save_bill", methods=["POST"])
+@authorization()
 def save_bill():
     try:
         number = request.form["number"]
@@ -26,11 +32,13 @@ def save_bill():
         return redirect("/bills")
 
 @routes.route('/edit_bill/<int:id>')
+@authorization()
 def edit_bill(id):
     bill = invoice_controller.get_bill_id(id)
     return render_template('invoice/update_bill.html',bill=bill)
 
 @routes.route('/update_bill', methods=['POST'])
+@authorization()
 def update_bill():
     # obtener los datos del formulario que invocó este end-point
     id = request.form['id']
@@ -43,6 +51,7 @@ def update_bill():
     return redirect('/bills')
 
 @routes.route("/delete_bill", methods=["POST"])
+@authorization()
 def delete_bill():
     res = invoice_controller.delete_invoice(request.form["id"])
     return redirect(url_for("routes.bills"))

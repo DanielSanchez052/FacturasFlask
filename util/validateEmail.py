@@ -8,4 +8,5 @@ def validateEmail(email):
         cursor.execute("SELECT id FROM user where email=%s",(email))
         users = cursor.fetchall()
     cnn.close()
+    print(users == ())
     return users == ()
